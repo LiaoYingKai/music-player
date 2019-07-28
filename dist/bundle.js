@@ -150,7 +150,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _poc
 /*! exports provided: pokers, default */
 /***/ (function(module) {
 
-eval("module.exports = JSON.parse(\"{\\\"pokers\\\":[{\\\"name\\\":\\\"kai\\\",\\\"age\\\":24},{\\\"number\\\":1,\\\"coloe\\\":\\\"spades\\\",\\\"imagePath\\\":\\\"\\\"}]}\");\n\n//# sourceURL=webpack:///./src/pocker.json?");
+eval("!(function webpackMissingModule() { var e = new Error(\"Cannot find module './pocker.json'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }());\n\n\n//# sourceURL=webpack:///./src/pocker.json?");
 
 /***/ }),
 
