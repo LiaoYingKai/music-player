@@ -10,7 +10,7 @@ function HomePage(){
     return (
         <div className="home-page">
             <NavBar/>
-            <div>
+            <div className="home-page__container">
                 <SearchBar/>
                 <div className="home-page__content">
                     {

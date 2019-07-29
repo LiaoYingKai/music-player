@@ -1,7 +1,13 @@
 .home-page{
     display: flex;
+    font-family: sans-serif;
+    &__container{
+        width: 100%;
+    }
 }
 .nav-bar{
+    background-color: #222222;
+    height: 100vh;
     min-width:214px;
     width: 18%;
     &__my-album{
@@ -19,6 +25,41 @@
             border: none;
             line-height:13px;
         }
+    }
+    ul{
+        li{
+            font-size: 16px;
+            color: #868686;;
+            padding: 12px 25px ;
+            line-height: 24px;
+            cursor: pointer;
+            &:hover{
+                color: #fff;
+                background-image: linear-gradient(to right,#FFA883 ,#3927FF);;
+            }
+        }
+    }
+}
+
+.search-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 26px;
+    position: fix;
+    width:100%;
+    &__search-input{
+        color:blue
+    }
+    &__user{
+        div{
+            height: 34px;
+            width: 34px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        color:#fff;
     }
 }
 
