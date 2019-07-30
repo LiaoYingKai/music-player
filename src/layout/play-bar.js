@@ -2,7 +2,7 @@ import React from 'react'
 
 function PlayerBar(){
     return (
-        <div>PlayerBar</div>
+        <div className="play-bar">PlayerBar</div>
     )
 }
 

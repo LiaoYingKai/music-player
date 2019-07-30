@@ -1,8 +1,10 @@
 .home-page{
+    background-color: #2A2A2A;
     display: flex;
     font-family: sans-serif;
     &__container{
-        width: 100%;
+        width:100%;
+        position: relative;
     }
 }
 .nav-bar{
@@ -46,8 +48,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 18px 26px;
-    position: fix;
-    width:100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
     &__search-input{
         color:blue
     }
@@ -63,4 +67,9 @@
     }
 }
 
-
+.play-bar{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
