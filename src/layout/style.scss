@@ -12,6 +12,7 @@
     height: 100vh;
     min-width:214px;
     width: 18%;
+    position: relative;
     &__my-album{
         padding: 23px 25px;
         color: #7a7a7a;
@@ -39,6 +40,22 @@
                 color: #fff;
                 background-image: linear-gradient(to right,#FFA883 ,#3927FF);;
             }
+        }
+    }
+    &__playing-album{
+        width: 100%;
+        position: absolute;
+        bottom: 18px;
+        img{
+            width: 100%;
+            height: auto;
+        }
+        &-title{
+            position: absolute;
+            top: 16px;
+            left: 25px;
+            font-size: 18px;
+            color: #fff;
         }
     }
 }

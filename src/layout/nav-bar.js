@@ -1,5 +1,5 @@
 import React, {Component, } from 'react'
-
+import album from "../images/album.jpeg"
 class NavBar extends Component{
     constructor(){
         super()
@@ -21,8 +21,9 @@ class NavBar extends Component{
                 <ul>
                     {_renderList()}
                 </ul>
-                <div>
-
+                <div className="nav-bar__playing-album" >
+                    <img src={album}></img>
+                    <div className="nav-bar__playing-album-title"> 現在播放 </div>
                 </div>
             </div>
         )
