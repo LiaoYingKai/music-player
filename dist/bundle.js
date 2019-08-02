@@ -1,6 +1,50 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 	};
+/******/
+/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"main": 0
+/******/ 	};
+/******/
+/******/
+/******/
+/******/ 	// script path function
+/******/ 	function jsonpScriptSrc(chunkId) {
+/******/ 		return __webpack_require__.p + "" + chunkId + ".bundle.js"
+/******/ 	}
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +70,67 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		var promises = [];
+/******/
+/******/
+/******/ 		// JSONP chunk loading for javascript
+/******/
+/******/ 		var installedChunkData = installedChunks[chunkId];
+/******/ 		if(installedChunkData !== 0) { // 0 means "already installed".
+/******/
+/******/ 			// a Promise means "currently loading".
+/******/ 			if(installedChunkData) {
+/******/ 				promises.push(installedChunkData[2]);
+/******/ 			} else {
+/******/ 				// setup Promise in chunk cache
+/******/ 				var promise = new Promise(function(resolve, reject) {
+/******/ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
+/******/ 				});
+/******/ 				promises.push(installedChunkData[2] = promise);
+/******/
+/******/ 				// start chunk loading
+/******/ 				var script = document.createElement('script');
+/******/ 				var onScriptComplete;
+/******/
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.src = jsonpScriptSrc(chunkId);
+/******/
+/******/ 				// create error before stack unwound to get useful stacktrace later
+/******/ 				var error = new Error();
+/******/ 				onScriptComplete = function (event) {
+/******/ 					// avoid mem leaks in IE.
+/******/ 					script.onerror = script.onload = null;
+/******/ 					clearTimeout(timeout);
+/******/ 					var chunk = installedChunks[chunkId];
+/******/ 					if(chunk !== 0) {
+/******/ 						if(chunk) {
+/******/ 							var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 							var realSrc = event && event.target && event.target.src;
+/******/ 							error.message = 'Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')';
+/******/ 							error.name = 'ChunkLoadError';
+/******/ 							error.type = errorType;
+/******/ 							error.request = realSrc;
+/******/ 							chunk[1](error);
+/******/ 						}
+/******/ 						installedChunks[chunkId] = undefined;
+/******/ 					}
+/******/ 				};
+/******/ 				var timeout = setTimeout(function(){
+/******/ 					onScriptComplete({ type: 'timeout', target: script });
+/******/ 				}, 120000);
+/******/ 				script.onerror = script.onload = onScriptComplete;
+/******/ 				document.head.appendChild(script);
+/******/ 			}
+/******/ 		}
+/******/ 		return Promise.all(promises);
+/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -78,6 +183,16 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -140,7 +255,7 @@ eval("function _inheritsLoose(subClass, superClass) {\n  subClass.prototype = Ob
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".home-page {\\n  display: flex;\\n  font-family: sans-serif; }\\n  .home-page__container {\\n    width: 100%; }\\n\\n.nav-bar {\\n  background-color: #222222;\\n  height: 100vh;\\n  min-width: 214px;\\n  width: 18%; }\\n  .nav-bar__my-album {\\n    padding: 23px 25px;\\n    color: #7a7a7a;\\n    background-color: #161616;\\n    display: flex;\\n    justify-content: space-between; }\\n    .nav-bar__my-album button {\\n      color: #7a7a7a;\\n      font-size: 28px;\\n      cursor: pointer;\\n      background-color: transparent;\\n      border: none;\\n      line-height: 13px; }\\n  .nav-bar ul li {\\n    font-size: 16px;\\n    color: #868686;\\n    padding: 12px 25px;\\n    line-height: 24px;\\n    cursor: pointer; }\\n    .nav-bar ul li:hover {\\n      color: #fff;\\n      background-image: linear-gradient(to right, #FFA883, #3927FF); }\\n\\n.search-bar {\\n  display: flex;\\n  justify-content: space-between;\\n  align-items: center;\\n  padding: 18px 26px;\\n  position: fix;\\n  width: 100%; }\\n  .search-bar__search-input {\\n    color: blue; }\\n  .search-bar__user {\\n    color: #fff; }\\n    .search-bar__user div {\\n      height: 34px;\\n      width: 34px;\\n      background-color: red;\\n      border-radius: 50%;\\n      display: inline-block; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/layout/style.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \".home-page {\\n  background-color: #2A2A2A;\\n  display: flex;\\n  font-family: sans-serif; }\\n  .home-page__container {\\n    width: 100%;\\n    position: relative; }\\n\\n.nav-bar {\\n  background-color: #222222;\\n  height: 100vh;\\n  min-width: 214px;\\n  width: 18%;\\n  position: relative; }\\n  .nav-bar__my-album {\\n    padding: 23px 25px;\\n    color: #7a7a7a;\\n    background-color: #161616;\\n    display: flex;\\n    justify-content: space-between; }\\n    .nav-bar__my-album button {\\n      color: #7a7a7a;\\n      font-size: 28px;\\n      cursor: pointer;\\n      background-color: transparent;\\n      border: none;\\n      line-height: 13px; }\\n  .nav-bar ul li {\\n    font-size: 16px;\\n    color: #868686;\\n    padding: 12px 25px;\\n    line-height: 24px;\\n    cursor: pointer; }\\n    .nav-bar ul li:hover {\\n      color: #fff;\\n      background-image: linear-gradient(to right, #FFA883, #3927FF); }\\n  .nav-bar__playing-album {\\n    width: 100%;\\n    position: absolute;\\n    bottom: 18px; }\\n    .nav-bar__playing-album img {\\n      width: 100%;\\n      height: auto; }\\n    .nav-bar__playing-album-title {\\n      position: absolute;\\n      top: 16px;\\n      left: 25px;\\n      font-size: 18px;\\n      color: #fff; }\\n\\n.search-bar {\\n  display: flex;\\n  justify-content: space-between;\\n  align-items: center;\\n  padding: 18px 26px;\\n  position: absolute;\\n  top: 0;\\n  width: 100%;\\n  box-sizing: border-box; }\\n  .search-bar__search-input {\\n    display: flex;\\n    align-items: center;\\n    justify-content: center; }\\n    .search-bar__search-input input {\\n      width: 500px;\\n      background-color: transparent;\\n      border: 0;\\n      line-height: 24px;\\n      font-size: 16px;\\n      color: #fff; }\\n      .search-bar__search-input input:focus, .search-bar__search-input input:hover {\\n        outline: 0;\\n        border-bottom: 1px solid #fff;\\n        margin-left: 10px; }\\n    .search-bar__search-input img {\\n      width: 30px;\\n      height: 30px; }\\n  .search-bar__user {\\n    display: flex;\\n    align-items: center;\\n    justify-content: center; }\\n    .search-bar__user div {\\n      height: 34px;\\n      width: 34px;\\n      background-color: red;\\n      border-radius: 50%; }\\n    .search-bar__user p {\\n      color: #fff;\\n      margin-left: 10px; }\\n\\n.play-bar {\\n  position: absolute;\\n  bottom: 0;\\n  width: 100%;\\n  box-sizing: border-box; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/layout/style.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
 
 /***/ }),
 
@@ -151,7 +266,7 @@ eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"html, body, div, span, applet, object, iframe,\\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\\na, abbr, acronym, address, big, cite, code,\\ndel, dfn, em, img, ins, kbd, q, s, samp,\\nsmall, strike, strong, sub, sup, tt, var,\\nb, u, i, center,\\ndl, dt, dd, ol, ul, li,\\nfieldset, form, label, legend,\\ntable, caption, tbody, tfoot, thead, tr, th, td,\\narticle, aside, canvas, details, embed,\\nfigure, figcaption, footer, header, hgroup,\\nmenu, nav, output, ruby, section, summary,\\ntime, mark, audio, video {\\n  margin: 0;\\n  padding: 0;\\n  border: 0;\\n  font-size: 100%;\\n  font: inherit;\\n  vertical-align: baseline; }\\n\\n/* HTML5 display-role reset for older browsers */\\narticle, aside, details, figcaption, figure,\\nfooter, header, hgroup, menu, nav, section {\\n  display: block; }\\n\\nbody {\\n  line-height: 1; }\\n\\nol, ul {\\n  list-style: none; }\\n\\nblockquote, q {\\n  quotes: none; }\\n\\nblockquote:before, blockquote:after,\\nq:before, q:after {\\n  content: '';\\n  content: none; }\\n\\ntable {\\n  border-collapse: collapse;\\n  border-spacing: 0; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/style.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
+eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"html, body, div, span, applet, object, iframe,\\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\\na, abbr, acronym, address, big, cite, code,\\ndel, dfn, em, img, ins, kbd, q, s, samp,\\nsmall, strike, strong, sub, sup, tt, var,\\nb, u, i, center,\\ndl, dt, dd, ol, ul, li,\\nfieldset, form, label, legend,\\ntable, caption, tbody, tfoot, thead, tr, th, td,\\narticle, aside, canvas, details, embed,\\nfigure, figcaption, footer, header, hgroup,\\nmenu, nav, output, ruby, section, summary,\\ntime, mark, audio, video {\\n  margin: 0;\\n  padding: 0;\\n  border: 0;\\n  font-size: 100%;\\n  font: inherit;\\n  vertical-align: baseline; }\\n\\n/* HTML5 display-role reset for older browsers */\\narticle, aside, details, figcaption, figure,\\nfooter, header, hgroup, menu, nav, section {\\n  display: block; }\\n\\nol, ul {\\n  list-style: none; }\\n\\nblockquote, q {\\n  quotes: none; }\\n\\nblockquote:before, blockquote:after,\\nq:before, q:after {\\n  content: '';\\n  content: none; }\\n\\ntable {\\n  border-collapse: collapse;\\n  border-spacing: 0; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/style.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js");
 
 /***/ }),
 
@@ -338,7 +453,7 @@ eval("\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -544,6 +659,28 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 
 /***/ }),
 
+/***/ "./src/images/album.jpeg":
+/*!*******************************!*\
+  !*** ./src/images/album.jpeg ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"data:image/jpeg;base64,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\"\n\n//# sourceURL=webpack:///./src/images/album.jpeg?");
+
+/***/ }),
+
+/***/ "./src/images/search.png":
+/*!*******************************!*\
+  !*** ./src/images/search.png ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAMAAADW3miqAAABF1BMVEVHcEz////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////qEhAeAAAAXHRSTlMA7ehSv/zTBge4DH0J4zQB9GiMxUWWbf3phMuLkASw2qLAkYk7jZsoFpQjuTzgA55d+vWvTedurfYsMlYcPy7+8RkbJTW22Lr7ZxGjdi1X0j7uIbw3eOZieopYqYpYUP8AAAD7SURBVDjL1dLVbsMwFIDhk2RO0nZlHDMz8zpmZvjf/zl20y6W7Ky33bn7pU+WZR+R9p5k6fLm7vZPsn+uAKilgjgSFKo05+zEbsJuQN1fF54dQO1Y0SAwtCsiks3nYHPLYjJAT7YRx2mYsaBT6I9qW0HGMFeKi0Otp6DXQB4U9S6Bb6AKlPWeBMdAr/CpdycsGegdvvWegLSBXqCmdx5WzCd4g6+o5n1YNNEHPD791jA4oWVJXHD3GrcuAxXb3z1UoT7uTSdn1+eAAfsaeAdE40LCulRHG02SG+sjTsnoSHFt2V9YDUUS8UrbwY42VilprVqeJBJ2BfK/5wfETjziTw34/AAAAABJRU5ErkJggg==\"\n\n//# sourceURL=webpack:///./src/images/search.png?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -564,7 +701,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/* harmony import */ var _lib_loadable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/loadable */ \"./src/lib/loadable.js\");\n/* harmony import */ var _nav_bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nav-bar */ \"./src/layout/nav-bar.js\");\n/* harmony import */ var _serach_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./serach-bar */ \"./src/layout/serach-bar.js\");\n/* harmony import */ var _play_bar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./play-bar */ \"./src/layout/play-bar.js\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./style.scss */ \"./src/layout/style.scss\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_6__);\n\n\n\n\n\n\n\n\nfunction HomePage() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"home-page\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_bar__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"home-page__container\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_serach_bar__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"home-page__content\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_play_bar__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null)));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (HomePage);\n\n//# sourceURL=webpack:///./src/layout/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/* harmony import */ var _nav_bar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nav-bar */ \"./src/layout/nav-bar.js\");\n/* harmony import */ var _serach_bar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./serach-bar */ \"./src/layout/serach-bar.js\");\n/* harmony import */ var _play_bar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./play-bar */ \"./src/layout/play-bar.js\");\n/* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../route */ \"./src/route.js\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./style.scss */ \"./src/layout/style.scss\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_6__);\n\n\n\n\n\n\n\n\nfunction HomePage() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__[\"BrowserRouter\"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"home-page\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_nav_bar__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"home-page__container\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_serach_bar__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"home-page__content\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_route__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_play_bar__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null))));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (HomePage);\n\n//# sourceURL=webpack:///./src/layout/index.js?");
 
 /***/ }),
 
@@ -576,7 +713,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n\n\nvar NavBar =\n/*#__PURE__*/\nfunction (_Component) {\n  _inherits(NavBar, _Component);\n\n  function NavBar() {\n    var _this;\n\n    _classCallCheck(this, NavBar);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavBar).call(this));\n    _this._renderList = _this._renderList.bind(_assertThisInitialized(_this));\n    return _this;\n  }\n\n  _createClass(NavBar, [{\n    key: \"_renderList\",\n    value: function _renderList() {\n      var musicList = ['Jessica', 'YouTube Music', 'November', 'Space Hunter', 'The Path Starts Here', 'If I Had a Chicken'];\n      return musicList.map(function (item) {\n        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"li\", {\n          key: item\n        }, item);\n      });\n    }\n  }, {\n    key: \"render\",\n    value: function render() {\n      var _renderList = this._renderList;\n      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n        className: \"nav-bar\"\n      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n        className: \"nav-bar__my-album\"\n      }, \"\\u6211\\u7684\\u5C08\\u8F2F\", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"button\", null, \" + \")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"ul\", null, _renderList()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null));\n    }\n  }]);\n\n  return NavBar;\n}(react__WEBPACK_IMPORTED_MODULE_0__[\"Component\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (NavBar);\n\n//# sourceURL=webpack:///./src/layout/nav-bar.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _images_album_jpeg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../images/album.jpeg */ \"./src/images/album.jpeg\");\n/* harmony import */ var _images_album_jpeg__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_images_album_jpeg__WEBPACK_IMPORTED_MODULE_1__);\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n\n\n\nvar NavBar =\n/*#__PURE__*/\nfunction (_Component) {\n  _inherits(NavBar, _Component);\n\n  function NavBar() {\n    var _this;\n\n    _classCallCheck(this, NavBar);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(NavBar).call(this));\n    _this._renderList = _this._renderList.bind(_assertThisInitialized(_this));\n    return _this;\n  }\n\n  _createClass(NavBar, [{\n    key: \"_renderList\",\n    value: function _renderList() {\n      var musicList = ['Jessica', 'YouTube Music', 'November', 'Space Hunter', 'The Path Starts Here', 'If I Had a Chicken'];\n      return musicList.map(function (item) {\n        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"li\", {\n          key: item\n        }, item);\n      });\n    }\n  }, {\n    key: \"render\",\n    value: function render() {\n      var _renderList = this._renderList;\n      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n        className: \"nav-bar\"\n      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n        className: \"nav-bar__my-album\"\n      }, \"\\u6211\\u7684\\u5C08\\u8F2F\", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"button\", null, \" + \")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"ul\", null, _renderList()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n        className: \"nav-bar__playing-album\"\n      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"img\", {\n        src: _images_album_jpeg__WEBPACK_IMPORTED_MODULE_1___default.a\n      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n        className: \"nav-bar__playing-album-title\"\n      }, \" \\u73FE\\u5728\\u64AD\\u653E \")));\n    }\n  }]);\n\n  return NavBar;\n}(react__WEBPACK_IMPORTED_MODULE_0__[\"Component\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (NavBar);\n\n//# sourceURL=webpack:///./src/layout/nav-bar.js?");
 
 /***/ }),
 
@@ -588,7 +725,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction PlayerBar() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null, \"PlayerBar\");\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PlayerBar);\n\n//# sourceURL=webpack:///./src/layout/play-bar.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction PlayerBar() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"play-bar\"\n  }, \"PlayerBar\");\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PlayerBar);\n\n//# sourceURL=webpack:///./src/layout/play-bar.js?");
 
 /***/ }),
 
@@ -600,7 +737,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction SearchBar() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"search-bar\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"search-bar__search-input\"\n  }, \"\\u653E\\u5927\\u93E1\"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"search-bar__user\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null), \"Liao Kai\"));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (SearchBar);\n\n//# sourceURL=webpack:///./src/layout/serach-bar.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _images_search_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../images/search.png */ \"./src/images/search.png\");\n/* harmony import */ var _images_search_png__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_images_search_png__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nfunction SearchBar() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"search-bar\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"search-bar__search-input\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"img\", {\n    src: _images_search_png__WEBPACK_IMPORTED_MODULE_1___default.a,\n    alt: \"\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"input\", {\n    type: \"text\"\n  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"search-bar__user\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"p\", null, \"Liao Kai\")));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (SearchBar);\n\n//# sourceURL=webpack:///./src/layout/serach-bar.js?");
 
 /***/ }),
 
@@ -635,6 +772,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, exports) {
 
 eval("\n\n//# sourceURL=webpack:///./src/redux/index.js?");
+
+/***/ }),
+
+/***/ "./src/route.js":
+/*!**********************!*\
+  !*** ./src/route.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ \"./node_modules/react-router-dom/esm/react-router-dom.js\");\n/* harmony import */ var _lib_loadable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/loadable */ \"./src/lib/loadable.js\");\n\n\n\nvar PlayList = Object(_lib_loadable__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({\n  loader: function loader() {\n    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! pages/PlayList */ \"./src/pages/PlayList/index.js\"));\n  }\n});\nvar YoutubeList = Object(_lib_loadable__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({\n  loader: function loader() {\n    return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! pages/YoutubeList */ \"./src/pages/YoutubeList/index.js\"));\n  }\n});\n\nfunction RouteLayout() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__[\"Switch\"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__[\"Route\"], {\n    path: \"/\",\n    component: PlayList\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__[\"Route\"], {\n    path: \"/youtubeList\",\n    component: YoutubeList\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (RouteLayout);\n\n//# sourceURL=webpack:///./src/route.js?");
 
 /***/ }),
 
