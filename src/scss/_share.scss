@@ -1,0 +1,6 @@
+@mixin container__style($width, $height, $borderRadius) {
+    width: $width;
+    height: $height;
+    border-radius: $borderRadius;
+    background-image: linear-gradient(to right,#3927FF,#FFA883 );
+}

@@ -1,0 +1,79 @@
+@import '../../scss/share';
+.update-account{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    &__container{
+        @include container__style(527px, 337px, 4px);
+        position: relative;
+    }
+    &__close{
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 24px;
+        cursor: pointer;
+    }
+    &__slogn{
+        position: absolute;
+        color: #fff;
+        top: 79px;
+        left: 109px;
+        z-index: 2;
+        p{
+            &:nth-child(1),
+            &:nth-child(2){
+                font-size: 40px;
+                line-height: 45px;
+            }
+            &:last-child{
+                font-size: 16px;
+                margin-top: 15px;
+            }
+        }
+    }
+    &__circle{
+        @include container__style(214px, 214px, 50%);
+        background-image: linear-gradient(45deg, #3927FF, #FFA883);
+        position: absolute;
+        top: 40px;
+        left: 61px;
+    }
+    &__box1{
+        @include container__style(157px, 47px, 0px);
+        position: absolute;
+        top: 82px;
+        left: 229px;
+    }
+    &__box2{
+        @include container__style(51px, 24px, 0px);
+        position: absolute;
+        top: 158px;
+        left: 409px;
+    }
+    &__box3{
+        @include container__style(32px, 16px, 0px);
+        position: absolute;
+        top: 190px;
+        left: 347px;
+    }
+    &__button{
+        position: absolute;
+        top: 268px;
+        left: 216px;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 18.5px;
+        background-color: rgba(0,0,0,0.4);
+        padding: 8px 21px;
+        cursor: pointer;
+    }
+}
