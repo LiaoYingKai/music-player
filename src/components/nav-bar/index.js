@@ -1,6 +1,7 @@
 import React, {Component, } from 'react'
-import album from "../images/album.jpeg"
+import album from "../../images/album.jpeg"
 import { Link, NavLink } from 'react-router-dom';
+import './style.scss'
 class NavBar extends Component{
     constructor(){
         super()

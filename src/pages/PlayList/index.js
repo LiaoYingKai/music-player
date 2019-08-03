@@ -8,7 +8,6 @@ import remove from '../../images/remove.png'
 function PlayList({match}){
     return (
         <div className="play-list">
-            {console.log(match.params.album)}
             <div className="play-list__banner">
                 <img src={banner}></img>
             </div>

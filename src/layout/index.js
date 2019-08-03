@@ -1,8 +1,8 @@
 import React from 'react'
 import { HashRouter as Router, } from 'react-router-dom'
-import NavBar from './nav-bar'
-import SearchBar from './serach-bar'
-import PlayerBar from './play-bar'
+import NavBar from '../components/nav-bar'
+import SearchBar from '../components/search-bar'
+import PlayerBar from '../components/play-bar'
 import RouteLayout from '../route'
 import './style.scss'
 

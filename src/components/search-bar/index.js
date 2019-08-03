@@ -1,6 +1,6 @@
 import React from 'react'
-import serachIcon from '../images/search.png'
-
+import serachIcon from '../../images/search.png'
+import './style.scss'
 function SearchBar(){
     return (
         <div className="search-bar">
