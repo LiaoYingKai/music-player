@@ -1,3 +1,31 @@
 .my-album{
-    margin-top: 73px;
+    margin: 75px 0;
+    height: calc( 100vh - 150px);
+    &__banner{
+        height: 234px;
+        width: 100%;
+        background-color: #fff;
+    }
+    &__content{
+        padding: 42px 40px;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: scroll;
+        height: calc(100vh - 384px);
+    }
+    &__list-container{
+        margin: 0 27px 20px;;
+
+    }
+    &__image{
+        width: 172px;
+        height: 172px;
+        background-color: red;
+        margin-bottom: 10px;
+    }
+    &__name{
+        margin-bottom: 15px;
+        color: #fff;
+        font-size: 18px;
+    }
 }
