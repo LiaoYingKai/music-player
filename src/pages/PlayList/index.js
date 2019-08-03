@@ -1,6 +1,10 @@
 import React from 'react'
 import './style.scss'
 import banner from '../../images/banner.jpg'
+import album from '../../images/album.jpeg'
+import add from '../../images/add.png'
+import remove from '../../images/remove.png'
+
 
 function PlayList(){
     return (
@@ -10,7 +14,7 @@ function PlayList(){
             </div>
             <div className="play-list__container">
                 <div className="play-list__title">
-                    <img></img>
+                    <img src={album}></img>
                     <div className="play-list__title-container">
                         <div className="play-list__title-top">
                             <div className="play-list__title-name"> Youtube Music </div>
@@ -27,7 +31,15 @@ function PlayList(){
                 </div>
                 <div className="play-list__content">
                     <ul>
-                        <li></li>
+                        <li> 
+                            <div>1</div>
+                            <div>Jazz Apricot</div>
+                            <div>1:52</div>
+                            <div className="play-list__button-group">
+                                <div><img src={add}></img></div>
+                                <div><img src={remove}></img></div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

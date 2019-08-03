@@ -3,13 +3,13 @@
     &__banner{
         img{
             width: 100%;
-            height: 370px;
+            height: 340px;
         }
     }
     &__container{
         padding: 0 69px 75px;
         position: relative;
-        top: -100px;
+        top: -144px;
         
     }
     &__title{
@@ -27,6 +27,7 @@
         }
         &-bottom{
             align-items: flex-start;
+            margin-bottom: 0px;
         }
         img{
             width: 185px;
@@ -66,6 +67,30 @@
     }
     
     &__content{
-
+        ul{
+            li{
+                color: #fff;
+                display: grid;
+                grid-template-columns:  60px 1fr 90px 92px;
+                font-size: 18px;
+                background-color: #222;
+                padding: 12px 0px;
+                box-sizing: border-box;
+                text-align: center;
+                cursor: pointer;
+                &:hover{
+                    background-image: linear-gradient(270deg, #FFA88F30 , #3927FF30 );
+                }
+            }
+        }
+    }
+    &__button-group{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 24px;
+            height: 24px;
+        }
     }
 }
