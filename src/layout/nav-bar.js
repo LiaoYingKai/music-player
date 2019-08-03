@@ -7,7 +7,7 @@ class NavBar extends Component{
         this._renderList = this._renderList.bind(this)
     }
     _renderList(){
-        const musicList = [ 'Jessica', 'YouTube Music', 'November', 'Space Hunter', 'The Path Starts Here', 'If I Had a Chicken' ]
+        const musicList = [ 'Jessica', 'YouTube Music', 'November', 'Space Hunter', 'The Path Starts', 'If I Had a Chicken' ]
         return (
             musicList.map(item => {
                 return(

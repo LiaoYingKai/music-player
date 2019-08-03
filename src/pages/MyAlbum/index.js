@@ -3,7 +3,9 @@ import './style.scss'
 
 function PlayList(){
     return (
-        <div>Hello World Youtube List</div>
+        <div className="my-album">
+            Hello World Youtube List
+        </div>
     )
 }
 

@@ -5,9 +5,10 @@ import album from '../../images/album.jpeg'
 import add from '../../images/add.png'
 import remove from '../../images/remove.png'
 
-function PlayList(){
+function PlayList({match}){
     return (
         <div className="play-list">
+            {console.log(match.params.album)}
             <div className="play-list__banner">
                 <img src={banner}></img>
             </div>
@@ -16,7 +17,7 @@ function PlayList(){
                     <img src={album}></img>
                     <div className="play-list__title-container">
                         <div className="play-list__title-top">
-                            <div className="play-list__title-name"> Youtube Music </div>
+                            <div className="play-list__title-name"> { match.params.album } </div>
                             <div className="play-list__title-add"> + 新增至我的專輯</div>
                         </div>
                         <div className="play-list__title-bottom">
