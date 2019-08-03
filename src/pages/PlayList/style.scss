@@ -50,6 +50,7 @@
         }
         &-play{
             @include container__style(82px, 82px, 50%);
+            cursor: pointer;
             &::after{
                 content: '';
                 display: inline-block;

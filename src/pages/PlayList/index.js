@@ -4,7 +4,6 @@ import banner from '../../images/banner.jpg'
 import album from '../../images/album.jpeg'
 import add from '../../images/add.png'
 import remove from '../../images/remove.png'
-import UpdateAccount from '../../components/update-account'
 
 function PlayList(){
     return (
@@ -43,7 +42,6 @@ function PlayList(){
                     </ul>
                 </div>
             </div>
-            <UpdateAccount/>
         </div>
     )
 }

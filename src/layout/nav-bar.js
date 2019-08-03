@@ -1,5 +1,6 @@
 import React, {Component, } from 'react'
 import album from "../images/album.jpeg"
+import { Link, NavLink } from 'react-router-dom';
 class NavBar extends Component{
     constructor(){
         super()
@@ -8,7 +9,13 @@ class NavBar extends Component{
     _renderList(){
         const musicList = [ 'Jessica', 'YouTube Music', 'November', 'Space Hunter', 'The Path Starts Here', 'If I Had a Chicken' ]
         return (
-            musicList.map(item =><li key={item}>{item}</li>)
+            musicList.map(item => {
+                return(
+                    <li key={item}>
+                        <NavLink to={`/play-list/${item}`}>{item}</NavLink>
+                    </li>
+                )
+            })
         )
     }
     render(){
@@ -16,7 +23,9 @@ class NavBar extends Component{
         return (
             <div className="nav-bar">
                 <div className="nav-bar__my-album">
-                    我的專輯<button> + </button>
+                    <Link to="/">
+                        我的專輯<button> + </button>
+                    </Link>
                 </div>
                 <ul>
                     {_renderList()}

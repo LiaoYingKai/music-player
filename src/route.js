@@ -1,16 +1,16 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import loadComponent from './lib/loadable'
 
 const PlayList = loadComponent({ loader: () => import('pages/PlayList') })
-const YoutubeList = loadComponent({ loader: () => import('pages/YoutubeList') })
+const MyAlbum = loadComponent({ loader: () => import('pages/MyAlbum') })
 
 function RouteLayout(){
     return (
-        <Switch>
-            <Route path="/" component={PlayList}></Route>
-            <Route path="/youtubeList" component={YoutubeList}></Route>
-        </Switch>
+        <React.Fragment>
+            <Route exact path="/" component={MyAlbum}></Route>
+            <Route path="/play-list/:album" component={PlayList}></Route>
+        </React.Fragment>
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, } from 'react-router-dom'
+import { HashRouter as Router, } from 'react-router-dom'
 import NavBar from './nav-bar'
 import SearchBar from './serach-bar'
 import PlayerBar from './play-bar'
