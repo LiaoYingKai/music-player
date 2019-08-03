@@ -723,7 +723,7 @@ eval("\nvar content = __webpack_require__(/*! !../../../node_modules/css-loader/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ \"./src/components/play-bar/style.scss\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nfunction PlayerBar() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"play-bar\"\n  }, \"PlayerBar\");\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PlayerBar);\n\n//# sourceURL=webpack:///./src/components/play-bar/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ \"./src/components/play-bar/style.scss\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _svg_icon_repeat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../svg_icon/repeat */ \"./src/svg_icon/repeat.js\");\n/* harmony import */ var _svg_icon_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../svg_icon/next */ \"./src/svg_icon/next.js\");\n/* harmony import */ var _svg_icon_shuffle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../svg_icon/shuffle */ \"./src/svg_icon/shuffle.js\");\n/* harmony import */ var _svg_icon_previous__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../svg_icon/previous */ \"./src/svg_icon/previous.js\");\n/* harmony import */ var _svg_icon_start__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../svg_icon/start */ \"./src/svg_icon/start.js\");\n/* harmony import */ var _svg_icon_stop__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../svg_icon/stop */ \"./src/svg_icon/stop.js\");\n\n\n\n\n\n\n\n\n\nfunction PlayerBar() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"div\", {\n    className: \"play-bar\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_svg_icon_repeat__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_svg_icon_next__WEBPACK_IMPORTED_MODULE_3__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_svg_icon_shuffle__WEBPACK_IMPORTED_MODULE_4__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_svg_icon_previous__WEBPACK_IMPORTED_MODULE_5__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_svg_icon_start__WEBPACK_IMPORTED_MODULE_6__[\"default\"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_svg_icon_stop__WEBPACK_IMPORTED_MODULE_7__[\"default\"], null));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (PlayerBar);\n\n//# sourceURL=webpack:///./src/components/play-bar/index.js?");
 
 /***/ }),
 
@@ -861,6 +861,78 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("\nvar content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!../node_modules/sass-loader/lib/loader.js!./style.scss */ \"./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./src/style.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./src/style.scss?");
+
+/***/ }),
+
+/***/ "./src/svg_icon/next.js":
+/*!******************************!*\
+  !*** ./src/svg_icon/next.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction Next() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"svg\", {\n    xmlns: \"http://www.w3.org/2000/svg\",\n    width: \"24\",\n    height: \"24\",\n    viewBox: \"0 0 24 24\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M0 0h24v24H0z\",\n    fill: \"none\"\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Next);\n\n//# sourceURL=webpack:///./src/svg_icon/next.js?");
+
+/***/ }),
+
+/***/ "./src/svg_icon/previous.js":
+/*!**********************************!*\
+  !*** ./src/svg_icon/previous.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction Previous() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"svg\", {\n    xmlns: \"http://www.w3.org/2000/svg\",\n    width: \"24\",\n    height: \"24\",\n    viewBox: \"0 0 24 24\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M6 6h2v12H6zm3.5 6l8.5 6V6z\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M0 0h24v24H0z\",\n    fill: \"none\"\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Previous);\n\n//# sourceURL=webpack:///./src/svg_icon/previous.js?");
+
+/***/ }),
+
+/***/ "./src/svg_icon/repeat.js":
+/*!********************************!*\
+  !*** ./src/svg_icon/repeat.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction Repeat() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"svg\", {\n    xmlns: \"http://www.w3.org/2000/svg\",\n    width: \"24\",\n    height: \"24\",\n    viewBox: \"0 0 24 24\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M0 0h24v24H0z\",\n    fill: \"none\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z\"\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Repeat);\n\n//# sourceURL=webpack:///./src/svg_icon/repeat.js?");
+
+/***/ }),
+
+/***/ "./src/svg_icon/shuffle.js":
+/*!*********************************!*\
+  !*** ./src/svg_icon/shuffle.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction Next() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"svg\", {\n    xmlns: \"http://www.w3.org/2000/svg\",\n    width: \"24\",\n    height: \"24\",\n    viewBox: \"0 0 24 24\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M0 0h24v24H0z\",\n    fill: \"none\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z\"\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Next);\n\n//# sourceURL=webpack:///./src/svg_icon/shuffle.js?");
+
+/***/ }),
+
+/***/ "./src/svg_icon/start.js":
+/*!*******************************!*\
+  !*** ./src/svg_icon/start.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction Next() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"svg\", {\n    xmlns: \"http://www.w3.org/2000/svg\",\n    width: \"24\",\n    height: \"24\",\n    viewBox: \"0 0 24 24\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M0 0h24v24H0z\",\n    fill: \"none\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z\"\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Next);\n\n//# sourceURL=webpack:///./src/svg_icon/start.js?");
+
+/***/ }),
+
+/***/ "./src/svg_icon/stop.js":
+/*!******************************!*\
+  !*** ./src/svg_icon/stop.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction Stop() {\n  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"svg\", {\n    xmlns: \"http://www.w3.org/2000/svg\",\n    width: \"24\",\n    height: \"24\",\n    viewBox: \"0 0 24 24\"\n  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M0 0h24v24H0z\",\n    fill: \"none\"\n  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(\"path\", {\n    d: \"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z\"\n  }));\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Stop);\n\n//# sourceURL=webpack:///./src/svg_icon/stop.js?");
 
 /***/ })
 
