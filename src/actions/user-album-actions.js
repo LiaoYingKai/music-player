@@ -1,7 +1,7 @@
-import { GET_USER_ALBUM } from './acitonsType'
+import { GET_USER_ALBUM } from './actionsType'
 
 export function getUserAlbum(){
-    return{
+    return {
         type: GET_USER_ALBUM
     }
 }
