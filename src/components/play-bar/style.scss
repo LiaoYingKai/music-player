@@ -3,4 +3,16 @@
     bottom: 0;
     width: 100%;
     box-sizing: border-box;
+    &__options{
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg{
+            cursor: pointer;
+            &:hover{
+                fill: #6241E6 ;
+            }
+        }
+    }
 }
