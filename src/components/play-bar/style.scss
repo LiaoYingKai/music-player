@@ -3,11 +3,36 @@
     bottom: 0;
     width: 100%;
     box-sizing: border-box;
+    &__progress{
+        width: 100%;
+        border-radius: 2px;
+        height: 5px;
+        background-color: #363636;
+        position: relative;
+
+        &--current{
+            width: 50%;
+            border-radius: 2px;
+            height: 5px;
+            background-image: linear-gradient(270deg, #FFA883 , #3927FF );
+        }
+        &-button{
+            width: 10px;
+            height: 10px;
+            display: block;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top:-3px;
+            left: 50%;
+        }
+    }
     &__options{
         height: 70px;
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #1D1D1D;
         svg{
             cursor: pointer;
             &:hover{

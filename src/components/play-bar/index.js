@@ -11,8 +11,10 @@ function PlayerBar(){
     const style = {width: '36px',height: '36px',marginLeft: '36px'}
     return (
         <div className="play-bar">
-            <div className="play-bar__time">
-
+            <div className="play-bar__progress">
+                <div className="play-bar__progress--current">
+                    <span className="play-bar__progress-button"></span>
+                </div>
             </div>
             <div className="play-bar__options">
                 <Shuffle style={style}/>
