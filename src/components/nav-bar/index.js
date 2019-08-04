@@ -2,9 +2,8 @@ import React, {Component, } from 'react'
 import album from "../../images/album.jpeg"
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { getUserAlbum } from '../../actions/user-album-actions'
+import { getUserAlbumList, getAlbum } from '../../actions/user-album-actions'
 import './style.scss'
-console.log(getUserAlbum)
 class NavBar extends Component{
     constructor(){
         super()
@@ -12,7 +11,6 @@ class NavBar extends Component{
     }
     _renderList(){
         const { musicList } = this.props
-        console.log(musicList)
         return (
             musicList.map(item => {
                 return(
@@ -43,21 +41,21 @@ class NavBar extends Component{
         )
     }
     componentDidMount(){
-        const { getUserAlbum } = this.props
-        console.log(getUserAlbum)
-        getUserAlbum()
+        const { getUserAlbumList, getAlbum } = this.props
+        getUserAlbumList()
+        getAlbum()
     }
 }
 
 function mapStateToProps(state){
-    console.log(state)
     return {
-        musicList: state.userAlbum,
+        musicList: state.userAlbum.userAlbumList || [],
     }
 }
 function mapDispatchToProps(dispatch){
     return  {
-        getUserAlbum: () => { dispatch(getUserAlbum()) }
+        getUserAlbumList: () => { dispatch(getUserAlbumList()) },
+        getAlbum: () => {dispatch(getAlbum())}
     }
 }
 

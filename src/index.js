@@ -6,10 +6,11 @@ import { createStore, applyMiddleware } from 'redux'
 import musicPlayer from './reduxs'
 import './style.scss'
 import Layout from './layout'
+import thunk from 'redux-thunk';
 
 let store = createStore(
     musicPlayer,
-    applyMiddleware(logger)
+    applyMiddleware(thunk, logger),
 )
 
 
